@@ -68,9 +68,9 @@ AI_Project
 
 **模型名稱（請照這個）：**
 
-```
-Qwen2.5-Coder-7B-Instruct-Q4_K_M.gguf
-```
+
+[Qwen2.5-Coder-7B-Instruct-Q4_K_M.gguf](https://huggingface.co/unsloth/Qwen2.5-Coder-7B-Instruct-GGUF?utm_source=chatgpt.com&show_file_info=Qwen2.5-Coder-7B-Instruct-Q4_K_M.gguf)
+
 
 **操作：**
 
