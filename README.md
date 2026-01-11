@@ -3,105 +3,241 @@
 
 ## Local LLM
 
-### 第一步：建立工作資料夾
+## 一、環境前提（先確認）
 
-在你的電腦（建議 D 槽）建立一個資料夾，命名為 `AI_Project`。
+請確認你符合以下條件（你前面描述是 OK 的）：
 
----
-
-### 第二步：下載核心元件 (3 個檔案)
-
-請將以下檔案全部下載並放入 `AI_Project` 資料夾中：
-
-1. **llama.cpp 主程式 (b4512 CUDA 版)**
-* [點我下載：llama-b4512-bin-win-cuda-cu12.4-x64.zip](https://www.google.com/search?q=https://github.com/ggml-org/llama.cpp/releases/download/b4512/llama-b4512-bin-win-cuda-cu12.4-x64.zip)
-* **動作：** 解壓縮，將裡面所有的 `.exe` 檔案移到 `AI_Project` 根目錄。
-
-
-2. **GPU 支援庫 (DLL)**
-* [點我下載：cudart-llama-bin-win-cuda-12.4-x64.zip](https://www.google.com/search?q=https://github.com/ggml-org/llama.cpp/releases/download/b4512/cudart-llama-bin-win-cuda-12.4-x64.zip)
-* **動作：** 解壓縮，將裡面所有的 `.dll` 檔案移到 `AI_Project` 根目錄（與 `.exe` 放在一起）。
-
-
-3. **Phi-4-mini-Reasoning 模型檔**
-* [點我下載：Phi-4-mini-reasoning-Q4_K_M.gguf](https://www.google.com/search?q=https://huggingface.co/unsloth/Phi-4-mini-reasoning-GGUF/resolve/main/Phi-4-mini-reasoning-Q4_K_M.gguf)
-* **動作：** 直接放入 `AI_Project` 資料夾。
-
-
+* Windows 10 / 11（64 位元）
+* NVIDIA GPU（例如 GTX 1650，4GB VRAM）
+* 系統 RAM ≥ 16GB（32GB 更佳）
+* **不用安裝 Python、不用 Docker**
 
 ---
 
-### 第三步：製作伺服器啟動腳本
+## 二、建立工作資料夾
 
-這能讓模型在後台執行，供 AnythingLLM 連接。
+1. 打開檔案總管
+2. 到 `D:\`（或任一你喜歡的磁碟）
+3. 新增資料夾，命名為：
 
-1. 在資料夾內按右鍵 -> **新增文字文件**，命名為 `run_server.bat` (確認副檔名是 .bat)。
-2. 右鍵點擊該檔案選擇 **編輯**，貼入以下代碼並存檔：
+```
+AI_Project
+```
 
-```batch
-@echo off
-CHCP 65001 > nul
-TITLE Phi-4-mini Reasoning Server
+後面所有東西都放這裡。
 
-:: 針對 4GB 顯存優化
-:: -ctk q8_0 : KV 緩存量化，大幅節省顯存
-:: -c 8192   : 設定 8192 tokens 上下文
-llama-server.exe ^
-  -m Phi-4-mini-reasoning-Q4_K_M.gguf ^
-  -ngl 99 ^
-  -fa ^
-  -ctk q8_0 ^
-  -ctv q8_0 ^
-  -c 8192 ^
-  --host 0.0.0.0 ^
-  --port 8080
+---
 
-pause
+## 三、下載核心元件（一定要 3 個）
 
+### ① llama.cpp 主程式（CUDA 版）
+
+* 下載：
+
+  ```
+  llama-b4512-bin-win-cuda-cu12.4-x64.zip
+  ```
+* 來源：ggml-org / llama.cpp 官方 release
+
+**操作：**
+
+1. 解壓縮
+2. 把裡面所有 `.exe` 檔案
+   👉 **全部複製到 `AI_Project` 根目錄**
+
+---
+
+### ② CUDA Runtime DLL（GPU 支援）
+
+* 下載：
+
+  ```
+  cudart-llama-bin-win-cuda-12.4-x64.zip
+  ```
+
+**操作：**
+
+1. 解壓縮
+2. 把裡面所有 `.dll` 檔案
+   👉 **全部複製到 `AI_Project` 根目錄**
+3. 確認 `.exe` 和 `.dll` 在同一層
+
+---
+
+### ③ Qwen2.5-Coder-7B 模型檔（重點）
+
+**模型名稱（請照這個）：**
+
+```
+Qwen2.5-Coder-7B-Instruct-Q4_K_M.gguf
+```
+
+**操作：**
+
+1. 下載 `.gguf`
+2. **直接放進 `AI_Project` 資料夾**
+3. 不用解壓縮
+
+---
+
+### ✅ 此時資料夾結構應該長這樣
+
+```
+AI_Project
+│
+├─ llama-server.exe
+├─ llama-cli.exe
+├─ (其他 .exe)
+├─ *.dll
+├─ Qwen2.5-Coder-7B-Instruct-Q4_K_M.gguf
 ```
 
 ---
 
-### 第四步：安裝與設定 AnythingLLM (前端 UI)
+## 四、建立伺服器啟動腳本（最重要）
 
-1. **下載安裝：** 前往 [AnythingLLM 官網](https://useanything.com/download) 下載 Windows 版並完成安裝。
-2. **串接後端：**
-* 執行剛才做的 `run_server.bat`，看到 `HTTP server listening` 後不要關閉。
-* 打開 AnythingLLM，進入左下角 **Settings (齒輪)**。
-* 點擊 **LLM Preference**：
-* **LLM Provider:** 選擇 `Generic OpenAI`。
-* **Base URL:** 輸入 `http://127.0.0.1:8080/v1`。
-* **API Key:** 隨便輸入任何字（例如 `123`）。
-* **Model Name:** 輸入 `phi-4-mini`。
-* **Token limit:** 輸入 `8192`。
+### 1️⃣ 建立檔案
 
+1. 在 `AI_Project` 空白處 → 右鍵
+2. 新增 → 文字文件
+3. 改名為：
 
-* 點擊 **Save 儲存**。
+```
+run_server.bat
+```
 
-
+⚠️ 確認副檔名是 `.bat`，不是 `.txt`
 
 ---
 
-### 第五步：開始使用 (長文重構與 RAG)
+### 2️⃣ 編輯內容（完整可直接貼）
 
-1. **建立工作區：** 在 AnythingLLM 建立一個名為 `Code_Refactor` 的 Workspace。
-2. **上傳長文/程式碼：**
-* 點擊 Workspace 裡的「上傳」按鈕。
-* 丟入你想重構的程式碼檔案或 PDF 資料。
-* 點擊 **Save and Embed**。
+```batch
+@echo off
+CHCP 65001 > nul
+TITLE Qwen2.5-Coder-7B Server
 
+:: GTX 1650 / 4GB VRAM 穩定設定
+llama-server.exe ^
+  -m Qwen2.5-Coder-7B-Instruct-Q4_K_M.gguf ^
+  -ngl 99 ^
+  -fa ^
+  -ctk q8_0 ^
+  -ctv q8_0 ^
+  -c 6144 ^
+  --host 0.0.0.0 ^
+  --port 8080
 
-3. **對話：**
-* 你現在可以像用 ChatGPT 一樣開始對話。
-* **重構範例：** 「請分析我剛剛上傳的 `main.py`，找出效能瓶頸並重構它。」
-* 系統會自動從檔案中抓取重點，並呼叫後台的 Phi-4-mini 進行推理回答。
+pause
+```
 
-
+存檔後關閉。
 
 ---
 
-### ⚠️ 給你的核心提醒 (針對 GTX 1650)
+## 五、啟動模型伺服器
 
-* **顯存保護：** 執行時請關閉 Chrome/Edge 瀏覽器。
-* **推理過程：** Phi-4-mini-Reasoning 會先「思考」，在視窗中可能會看到思考邏輯，這代表它正在精確分析你的代碼，請耐心等待。
-* **萬一閃退：** 如果執行 `run_server.bat` 時閃退，請將腳本中的 `-c 8192` 改小一點（如 `6144`）。
+1. **雙擊 `run_server.bat`**
+2. 第一次會載入模型（30 秒～1 分鐘）
+3. 看到以下訊息代表成功：
+
+```
+HTTP server listening on 0.0.0.0:8080
+```
+
+👉 **這個視窗不要關**
+
+---
+
+## 六、安裝與設定 AnythingLLM（前端 UI）
+
+### ① 安裝
+
+* 前往：AnythingLLM 官網
+* 下載 Windows 版並完成安裝
+* 啟動 AnythingLLM
+
+---
+
+### ② 設定 LLM 連線
+
+1. 左下角 ⚙️ **Settings**
+2. 點 **LLM Preference**
+3. 設定如下（照填）：
+
+| 欄位           | 值                          |
+| ------------ | -------------------------- |
+| LLM Provider | `Generic OpenAI`           |
+| Base URL     | `http://127.0.0.1:8080/v1` |
+| API Key      | `123`（隨便）                  |
+| Model Name   | `qwen2.5-coder-7b`         |
+| Token Limit  | `6144`                     |
+
+4. 點 **Save**
+
+---
+
+## 七、建立重構用 Workspace（RAG）
+
+1. 回到 AnythingLLM 主畫面
+2. 建立 Workspace：
+
+   ```
+   Code_Refactor
+   ```
+3. 進入 Workspace
+
+---
+
+### 上傳資料
+
+* 上傳：
+
+  * `.cs / .cpp / .py / .js`
+  * 專案資料夾
+  * 技術 PDF
+* 點 **Save and Embed**
+* 等待嵌入完成
+
+---
+
+## 八、正確的「程式重構」提問方式（很重要）
+
+### ❌ 不建議
+
+> 幫我優化這段程式
+
+### ✅ 建議這樣問（效果差很多）
+
+> 請在 **不改 public API** 的前提下
+> 重構我剛上傳的 `xxx.cs`
+>
+> 要求：
+>
+> 1. 行為必須與原本一致
+> 2. 提升可讀性與維護性
+> 3. 明確列出你實際修改的地方
+
+👉 **這是 Qwen2.5-Coder-7B 的最佳用法**
+
+---
+
+## 九、效能與穩定性注意事項（GTX 1650）
+
+### 建議關閉
+
+* Chrome / Edge
+* Discord
+* 遊戲啟動器
+* VSCode GPU 加速（可選）
+
+---
+
+### 如果閃退 / OOM
+
+依序嘗試：
+
+1. 把 `-c 6144` 改成 `5632`
+2. 把 `-ngl 99` 改成 `-ngl 60`
+3. 重新啟動 `run_server.bat`
+
