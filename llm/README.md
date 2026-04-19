@@ -69,4 +69,5 @@ Karpathy 是業界少數真的超會教的人。他有一個 YouTube 系列叫 *
 ---
 
 ## Reference
+[llm visualization](https://bbycroft.net/llm) \
 [dotLLM](https://github.com/kkokosa/dotLLM/tree/main)
