@@ -1,7 +1,6 @@
-# llm_practices
+# AI Papers
 
-
-## Local LLM
+# Local LLM
 
 ## 一、環境前提（先確認）
 
