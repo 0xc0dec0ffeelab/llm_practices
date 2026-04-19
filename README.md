@@ -1,5 +1,66 @@
 # AI Papers
 
+### Phase 0：直覺建立
+1. An Introduction to Variational Autoencoders \
+   [https://arxiv.org/abs/1906.02691](https://arxiv.org/abs/1906.02691)
+### Phase 1：訓練深度模型的基礎
+2. Batch Normalization \
+   [https://arxiv.org/abs/1502.03167](https://arxiv.org/abs/1502.03167)
+3. Layer Normalization \
+   [https://arxiv.org/abs/1607.06450](https://arxiv.org/abs/1607.06450)
+4. Deep Residual Learning for Image Recognition \
+   [https://arxiv.org/abs/1512.03385](https://arxiv.org/abs/1512.03385)
+### Phase 2：Transformer 與語言模型
+5. Attention Is All You Need \
+   [https://arxiv.org/abs/1706.03762](https://arxiv.org/abs/1706.03762)
+6. BERT \
+   [https://arxiv.org/abs/1810.04805](https://arxiv.org/abs/1810.04805)
+7. Language Models are Unsupervised Multitask Learners \
+   [https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf](https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf)
+### Phase 3：跨模態與可擴展性
+8. Transformers for Image Recognition at Scale \
+   [https://arxiv.org/abs/2010.11929](https://arxiv.org/abs/2010.11929)
+9. Learning Transferable Visual Models From Natural Language Supervision \
+   [https://arxiv.org/abs/2103.00020](https://arxiv.org/abs/2103.00020)
+10. LoRA: Low-Rank Adaptation of Large Language Models \
+    [https://arxiv.org/abs/2106.09685](https://arxiv.org/abs/2106.09685)
+### Phase 4：推理與自我改進
+11. Let's Verify Step by Step \
+    [https://arxiv.org/abs/2305.20050](https://arxiv.org/abs/2305.20050)
+12. Reflexion: Language Agents with Verbal Reinforcement Learning \
+    [https://arxiv.org/abs/2303.11366](https://arxiv.org/abs/2303.11366)
+13. Self-RAG \
+    [https://arxiv.org/abs/2310.11511](https://arxiv.org/abs/2310.11511)
+### Phase 5：推論效率
+14. Transformers are RNNs: Fast Autoregressive Transformers with Linear Attention \
+    [https://arxiv.org/abs/2006.16236](https://arxiv.org/abs/2006.16236)
+15. Linformer: Self-Attention with Linear Complexity \
+    [https://arxiv.org/abs/2006.04768](https://arxiv.org/abs/2006.04768)
+16. Fast Inference from Transformers via Speculative Decoding \
+    [https://arxiv.org/abs/2211.17192](https://arxiv.org/abs/2211.17192)
+17. EAGLE: Speculative Sampling Requires Rethinking Feature Uncertainty \
+    [https://arxiv.org/abs/2401.15077](https://arxiv.org/abs/2401.15077)
+### Phase 6：強化學習與對齊
+18. A General Theoretical Paradigm to Understand Learning from Human Preferences \
+    [https://arxiv.org/abs/1706.03741](https://arxiv.org/abs/1706.03741)
+19. Trust Region Policy Optimization \
+    [https://arxiv.org/abs/1502.05477](https://arxiv.org/abs/1502.05477)
+20. High-Dimensional Continuous Control Using Generalized Advantage Estimation \
+    [https://arxiv.org/abs/1506.02438](https://arxiv.org/abs/1506.02438)
+21. Asynchronous Methods for Deep Reinforcement Learning \
+    [https://arxiv.org/abs/1602.01783](https://arxiv.org/abs/1602.01783)
+22. Proximal Policy Optimization Algorithms \
+    [https://arxiv.org/abs/1707.06347](https://arxiv.org/abs/1707.06347)
+23. Training language models to follow instructions with human feedback \
+    [https://arxiv.org/abs/2203.02155](https://arxiv.org/abs/2203.02155)
+24. Token-level Direct Preference Optimization \
+    [https://arxiv.org/abs/2404.19733](https://arxiv.org/abs/2404.19733)
+25. It Takes Two: Your GRPO Is Secretly DPO \
+    [https://arxiv.org/abs/2402.14767](https://arxiv.org/abs/2402.14767)
+26. Search-R1 \
+    [https://arxiv.org/abs/2403.05583](https://arxiv.org/abs/2403.05583)
+
+---
 # Local LLM
 
 ## 一、環境前提（先確認）
